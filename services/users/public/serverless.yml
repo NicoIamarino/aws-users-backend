@@ -1,0 +1,37 @@
+service: users-api-public
+
+frameworkVersion: '2 || 3'
+
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  lambdaHashingVersion: 20201221
+  environment:
+    CLIENT_ID: 
+      Fn::ImportValue: UserPoolClientID
+
+
+functions:
+  signup:
+    handler: handler.register
+    events:
+      - http:
+          path: signup
+          method: post
+          cors: true
+  login:
+    handler: handler.login
+    events:
+      - http:
+          path: login
+          method: post
+          cors: true
+  recover:
+    handler: handler.recover
+    events:
+      - http:
+          path: /password/recover
+          method: post
+          cors: true
+

@@ -1,0 +1,38 @@
+service: user-pool-client
+
+frameworkVersion: '2 || 3'
+
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  lambdaHashingVersion: 20201221
+
+
+resources:
+  Resources:
+    UserPoolClient:
+      Type: "AWS::Cognito::UserPoolClient"
+      Properties:
+        ClientName: userPool-client
+        GenerateSecret: false
+        UserPoolId: 
+          Fn::ImportValue: UserpoolID
+        ExplicitAuthFlows:
+          - ALLOW_USER_PASSWORD_AUTH
+          - ALLOW_REFRESH_TOKEN_AUTH
+          - ALLOW_ADMIN_USER_PASSWORD_AUTH
+    UserPoolDomain: 
+      Type: AWS::Cognito::UserPoolDomain 
+      Properties:
+        UserPoolId: 
+          Fn::ImportValue: UserpoolID
+        Domain: "my-user-pool-domain"
+  Outputs:
+    UserPoolClientId:
+        Value: !Ref UserPoolClient
+        Export:
+          Name: UserPoolClientID
+
+
+

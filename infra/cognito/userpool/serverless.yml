@@ -1,0 +1,53 @@
+service: user-pool
+
+frameworkVersion: '2 || 3'
+
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  lambdaHashingVersion: 20201221
+
+
+resources:
+  Resources:
+    UserPool:
+        Type: "AWS::Cognito::UserPool"
+        Properties:
+          UserPoolName: my-userPool
+          AutoVerifiedAttributes:
+            - email
+          UsernameAttributes: 
+            - email
+          Schema:
+            - Name: name
+              AttributeDataType: String
+              Mutable: true
+              Required: true
+            - Name: family_name
+              AttributeDataType: String
+              Mutable: true
+              Required: true
+            - Name: email
+              AttributeDataType: String
+              Mutable: false
+              Required: true
+          AccountRecoverySetting:
+            RecoveryMechanisms:
+              - Name: verified_email
+                Priority: 1
+          EmailConfiguration:
+            EmailSendingAccount: DEVELOPER
+          VerificationMessageTemplate:
+            DefaultEmailOption: CONFIRM_WITH_LINK
+          MfaConfiguration: "OFF"
+  Outputs:
+    UserPoolId:
+      Value: !Ref UserPool
+      Export:
+        Name: "UserpoolID"
+
+
+
+
+
