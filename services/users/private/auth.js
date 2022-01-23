@@ -88,14 +88,7 @@ function buildAllowAllPolicy(event, principalId, decodedToken) {
         }
     };
 
-    console.log('Token: ',decodedToken)
-
-    //getMainAttributes(decodedToken)
-    //getCustomAttributes(decodedToken)
-
     policy.context = Object.assign({}, getMainAttributes(decodedToken), getCustomAttributes(decodedToken))
-
-    console.log('context: ', policy.context)
 
     return policy;
 }
@@ -112,6 +105,5 @@ const getCustomAttributes = ( token ) => {
     let customAttrs = {}
     const customArr = Object.entries(token).filter( entry => entry[0].startsWith('custom:') )
     customArr.forEach( entry => customAttrs[entry[0]] = entry[1])
-    console.log(customAttrs)
     return customAttrs;
 }

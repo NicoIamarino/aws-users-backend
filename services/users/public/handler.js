@@ -95,9 +95,6 @@ exports.recover = async (event, context,callback) => {
         errorResponse = {msg: e.message}
     }
 
-    console.error("Response ", response)
-
-
     return {
         statusCode: statusCode || 200,
         headers: {
