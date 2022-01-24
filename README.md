@@ -1,9 +1,4 @@
-<!--
-title: 'AWS Users Backend'
-framework: v2
-platform: AWS
-language: nodeJS
--->
+## AWS Users Backend
 
 ### Setting up the project
 
@@ -12,4 +7,3 @@ This is a Serverless Framework project. You must configure your AWS credentials 
 ### Deployment
 
 Just execute the init.js script to deploy the different AWS services and functions that make up this project.
-```
