@@ -103,3 +103,34 @@ exports.recover = async (event, context,callback) => {
         body: JSON.stringify( errorResponse || 'An email was sent in order to restart password.' ),
     };
 }
+
+exports.confirmRecover = async (event, context,callback) => {
+    let statusCode = null;
+    let errorResponse = null
+    let response = null
+    
+    const reqBody = JSON.parse(event.body)
+    
+    const params = {
+        ClientId: process.env.CLIENT_ID,
+        ConfirmationCode: reqBody.confirmationCode,
+        Password: reqBody.newPassword,
+        Username: reqBody.email,
+    }
+
+    try{
+        response = await cognitoIdentityServiceProvider.confirmForgotPassword(params).promise()
+    }catch(e){
+        statusCode = 400
+        console.error("Error ", e)
+        errorResponse = {msg: e.message}
+    }
+
+    return {
+        statusCode: statusCode || 200,
+        headers: {
+          "Access-Control-Allow-Origin" : "*", // Required for CORS support to work
+        },
+        body: JSON.stringify( errorResponse || 'New password confirmated.' ),
+    };
+}
