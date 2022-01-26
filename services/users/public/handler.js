@@ -63,7 +63,7 @@ exports.login = async (event, context,callback) => {
         loginDetail = await cognitoIdentityServiceProvider.initiateAuth(params).promise()
     }catch(e){
         statusCode = 400
-        errorResponse = {msg: e.message}
+        errorResponse = {message: e.message}
     }
 
     return {
@@ -92,7 +92,7 @@ exports.recover = async (event, context,callback) => {
     }catch(e){
         statusCode = 400
         console.error("Error ", e)
-        errorResponse = {msg: e.message}
+        errorResponse = {message: e.message}
     }
 
     return {
@@ -123,7 +123,7 @@ exports.confirmRecover = async (event, context,callback) => {
     }catch(e){
         statusCode = 400
         console.error("Error ", e)
-        errorResponse = {msg: e.message}
+        errorResponse = {message: e.message}
     }
 
     return {
