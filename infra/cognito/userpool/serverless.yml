@@ -36,6 +36,13 @@ resources:
             RecoveryMechanisms:
               - Name: verified_email
                 Priority: 1
+          Policies:
+            PasswordPolicy:
+                MinimumLength: 8
+                RequireLowercase: true
+                RequireNumbers: true
+                RequireSymbols: false
+                RequireUppercase: true
           VerificationMessageTemplate:
             DefaultEmailOption: CONFIRM_WITH_LINK
           MfaConfiguration: "OFF"
